@@ -22,10 +22,20 @@ class MoviePage
     end
   end
 
+  def alert 
+    find('.alert').text
+  end
+
+  # def select_status(status)
+  #   #combobox - customizado com ul e li's
+  #   find("input[placeholder=Status").click
+  #   find(".el-select-dropdown__item", text: movie["status"]).click
+  # end
+
   def create(movie)
     find("input[name=title]").set movie["title"]#pegar o elemento pelo name
-    
-    #combobox - customizado com lis
+
+    # select_status(movie["status"]) unless movie["status"].empty? 
     find("input[placeholder=Status").click
     find(".el-select-dropdown__item", text: movie["status"]).click
     
@@ -36,11 +46,15 @@ class MoviePage
 
     find("textarea[name=overview]").set movie["overview"]
     
-    upload(movie["cover"])
+    upload(movie["cover"]) unless movie["cover"].empty? #se retornar falso, ela tem valor,se retornar vazio não executa o upload do filme
 
     find("#create-movie").click
   end
- end
+  
+  def movie_tr(movie) #metodo recebe o obejeto movie. Ele vai retornar um elemento tr, cuja o valor do texto, seja o valor do texto do contexto do obejeto movie. 
+    find('table tbody tr', text: movie['title'])
+  end
+end
 
 
 

@@ -20,24 +20,26 @@ Funcionalidade: Cadastro de filmes
             |  "spider"   |
             |  "jocker"   |
 
-# Cenario: Seu nome
-#     Quando eu tento cadastrar um filme sem o nome
-#     Então devo ver a notificação "Oops - Filme sem titulo. Pode isso Arnaldo?"
+@attempt_movie
+Esquema do Cenario: Campos obrigatórios
+    O gestor de catálogo tenta cadastrar um novo filme, mas esquece
+    de preencher um dos campos que são obrigatórios, em seguida, o sistema
+    exibe uma notificação para o usuário.
 
-# Cenario: Sem status
-#     Quando eu tento cadastrar um filme sem o status
-#     Então devo ver a notificação "Oops - O status deve ser informado!"
+    Dado que <codigo> é um novo filme
+    Quando eu faço o cadastro deste filme
+    Então devo ver a notificação <texto>
 
-# Cenario: Ano de lançamento não informado
-#     Quando eu tento cadastrar um filme sem o ano de lançamento 
-#     Então devo ver a notificação "Oops - Faltou o ano de lançamento também!"
+    Exemplos:
+        |codigo     |texto                                              |
+        |"no_title" |"Oops - Filme sem titulo. Pode isso Arnaldo?"      |
+        |"no_status"|"Oops - O status deve ser informado!"              |
+        |"no_year"  |"Oops - Oops - Faltou o ano de lançamento também!" |
+        |"no_year"  |"Oops - Quase lá, só falta a data de estréia!"     |
 
-# Cenario: Data de estréia não informado
-#     Quando eu tento cadastrar um filme sem a data de estréia 
-#     Então devo ver a notificação "Oops - Quase lá, só falta a data de estréia!"
 
-# Cenario: Duplicado
-#     Dado que "Deadpool 2" já foi cadastrado
-#     Quando eu faço o cadastro  desde filme 
-#     Então devo ver a notificação "Oops - Este titulo já existe no Ninjaflix"
+Cenario: Duplicado
+    Dado que "Deadpool 2" já foi cadastrado
+    Quando eu faço o cadastro  desde filme 
+    Então devo ver a notificação "Oops - Este titulo já existe no Ninjaflix"
 
